@@ -23,5 +23,43 @@ public class EstiloTalla {
     @ManyToMany
     @JoinColumn(name = "talla_id")
     private Talla tallaid;
+
+    public EstiloTalla() {
+        super();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public double getConsumoTela() {
+        return consumoTela;
+    }
+
+    public void setConsumoTela(double consumoTela) {
+        this.consumoTela = consumoTela;
+    }
+
+    public Estilo getEstiloid() {
+        return estiloid;
+    }
+
+    public void setEstiloid(Estilo estiloid) {
+        this.estiloid = estiloid;
+    }
+
+    public Talla getTallaid() {
+        return tallaid;
+    }
+
+    public void setTallaid(Talla tallaid) {
+        this.tallaid = tallaid;
+    }
+
+    
     
 }
