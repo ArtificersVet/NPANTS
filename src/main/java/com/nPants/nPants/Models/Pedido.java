@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Pedido {
@@ -28,6 +29,8 @@ public class Pedido {
 
     private byte tipoPago;
 
-
+    @OneToMany
+    @JoinColumn(name = "estado_pedido_id", referencedColumnName = "id")
+    private int estadoPedidoid;
     
 }
