@@ -1,7 +1,7 @@
 package com.nPants.nPants.Models;
 
 import java.util.List;
-
+import jakarta.persistence.*;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@Table(name = "estilos")
 public class Estilo {
 
      @Id

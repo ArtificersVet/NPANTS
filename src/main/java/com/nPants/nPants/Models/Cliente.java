@@ -1,7 +1,7 @@
 package com.nPants.nPants.Models;
 
 import jakarta.annotation.Nonnull;
-
+import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
+@Table(name = "clientes")
 public class Cliente {
 
     @Id

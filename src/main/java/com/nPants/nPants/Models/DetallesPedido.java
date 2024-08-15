@@ -1,12 +1,13 @@
 package com.nPants.nPants.Models;
 
 import jakarta.annotation.Nonnull;
+import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 
 @Entity
-@Table(name = "DetallesPedido")
+@Table(name = "detalles_pedido")
 public class DetallesPedido {
 
     @Id
