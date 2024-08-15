@@ -1,28 +1,36 @@
 package com.nPants.nPants.Models;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class EstiloTalla {
 
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private double consumoTela;
 
-    @ManyToMany
-    @JoinColumn(name = "estilo_id")
-    private Estilo estiloid;
+    @ManyToOne
+    @JoinColumn(name = "estilo_id") 
+    private Estilo estiloid; 
 
     @ManyToMany
-    @JoinColumn(name = "talla_id")
-    private Talla tallaid;
+    @JoinTable(
+        name = "talla_estilo_talla", 
+        joinColumns = @JoinColumn(name = "estilo_talla_id"), 
+        inverseJoinColumns = @JoinColumn(name = "talla_id") 
+    )
+    private List<Talla> tallas; 
 
     public EstiloTalla() {
         super();
@@ -52,12 +60,12 @@ public class EstiloTalla {
         this.estiloid = estiloid;
     }
 
-    public Talla getTallaid() {
-        return tallaid;
+    public List<Talla> getTallas() {
+        return tallas;
     }
 
-    public void setTallaid(Talla tallaid) {
-        this.tallaid = tallaid;
+    public void setTallas(List<Talla> tallas) {
+        this.tallas = tallas;
     }
 
     

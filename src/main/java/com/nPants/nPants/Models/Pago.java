@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Pago {
@@ -18,7 +17,7 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-     @Nonnull
+    @Nonnull
     @ManyToOne
     @JoinColumn(name = "Pedido_id")
     private Pedido pedidoid;
@@ -30,9 +29,11 @@ public class Pago {
     private Double monto;
 
     @Nonnull
-    @OneToMany
+    @ManyToOne 
     @JoinColumn(name = "MetodoPago_id")
     private MetodoPago metodoPago;
+
+    // Constructor, getters, and setters
 
     public Pago() {
         super();
@@ -51,7 +52,8 @@ public class Pago {
     }
 
     public void setPedidoid(Pedido pedidoid) {
-        this.pedidoid = pedidoid;
+        this.pedidoid = pedidoid;  
+
     }
 
     public LocalDate getFechaPago() {
@@ -75,7 +77,8 @@ public class Pago {
     }
 
     public void setMetodoPago(MetodoPago metodoPago) {
-        this.metodoPago = metodoPago;
+        this.metodoPago
+ = metodoPago;
     }
 
     

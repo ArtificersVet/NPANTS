@@ -1,5 +1,7 @@
 package com.nPants.nPants.Models;
 
+import java.util.List;
+
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ public class Estilo {
     @Nonnull
     @OneToMany
     @JoinColumn(name = "talla_id")
-    private Talla tallaid;
+    private List<Talla> tallas;
     
     public Estilo() {
         super();
@@ -53,12 +55,12 @@ public class Estilo {
         this.tipo = tipo;
     }
 
-    public Talla getTallaid() {
-        return tallaid;
+    public List<Talla> getTallas() {
+        return tallas;
     }
 
-    public void setTallaid(Talla tallaid) {
-        this.tallaid = tallaid;
+    public void setTallas(List<Talla> tallas) {
+        this.tallas = tallas;
     }
 
     
