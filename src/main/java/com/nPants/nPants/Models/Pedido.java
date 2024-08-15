@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Pedido {
@@ -22,18 +21,22 @@ public class Pedido {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente clienteid;
+
     @Nonnull
     private LocalDate fechaPedido;
+
     @Nonnull
     private double total;
+
     @Nonnull
     private double saldo;
+
     @Nonnull
     private byte tipoPago;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "estado_pedido_id", referencedColumnName = "id")
-    private int estadoPedidoid;
+    private EstadoPedido estadoPedidoid;
 
     public Pedido() {
         super();
@@ -87,14 +90,12 @@ public class Pedido {
         this.tipoPago = tipoPago;
     }
 
-    public int getEstadoPedidoid() {
+    public EstadoPedido getEstadoPedidoid() {
         return estadoPedidoid;
     }
 
-    public void setEstadoPedidoid(int estadoPedidoid) {
+    public void setEstadoPedidoid(EstadoPedido estadoPedidoid) {
         this.estadoPedidoid = estadoPedidoid;
     }
-
-    
 
 }

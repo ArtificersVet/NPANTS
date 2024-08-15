@@ -11,14 +11,16 @@ public class DetallesPedidoTalla {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Nonnull
-    private Long detallesPedidoId;
+
     @Nonnull
     private int tallaId;
+
     @Nonnull
     private int cantidadPieza;
+
     @Nonnull
     private BigDecimal consumoTela;
+
     @Nonnull
     @ManyToOne
     @JoinColumn(name = "detalles_pedido_id", referencedColumnName = "id")
@@ -34,14 +36,6 @@ public class DetallesPedidoTalla {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getDetallesPedidoId() {
-        return detallesPedidoId;
-    }
-
-    public void setDetallesPedidoId(Long detallesPedidoId) {
-        this.detallesPedidoId = detallesPedidoId;
     }
 
     public int getTallaId() {
@@ -75,7 +69,4 @@ public class DetallesPedidoTalla {
     public void setDetallesPedido(DetallesPedido detallesPedido) {
         this.detallesPedido = detallesPedido;
     }
-
-    
-
 }
