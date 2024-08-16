@@ -1,10 +1,10 @@
 package com.nPants.nPants.Models;
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "detalles_pedido")
@@ -27,6 +27,7 @@ public class DetallesPedido {
     @Nonnull
     private BigDecimal precioUnitario;
     @Nonnull
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String descripcion;
     @Nonnull
     private BigDecimal subTotal;

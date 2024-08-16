@@ -2,12 +2,9 @@ package com.nPants.nPants.Models;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "clientes")
@@ -18,12 +15,18 @@ public class Cliente {
     private Long id;
 
     @Nonnull
+    @NotBlank(message = "El nombre es obligatorio")
+    @Size(max = 30, message = "El nombre no puede tener más de 30 caracteres")
+    @Column(nullable = false, length = 30)  // Restricción a nivel de base de datos
     private String nombre;
 
     @Nonnull
     private String direccion;
 
     @Nonnull
+    @NotBlank(message = "El telefono es obligatorio")
+    @Size(max = 10, message = "El telefono no puede tener más de 10 caracteres")
+    @Column(nullable = false, length = 30)  // Restricción a nivel de base de datos
     private String telefono;
 
     @Nonnull

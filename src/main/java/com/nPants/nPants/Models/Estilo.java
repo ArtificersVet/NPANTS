@@ -3,12 +3,8 @@ package com.nPants.nPants.Models;
 import java.util.List;
 import jakarta.persistence.*;
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "estilos")
@@ -19,8 +15,14 @@ public class Estilo {
     private Long id;
 
     @Nonnull
+    @NotBlank(message = "El nombre es obligatorio")
+    @Size(max = 30, message = "El nombre no puede tener más de 30 caracteres")
+    @Column(nullable = false, length = 30)  // Restricción a nivel de base de datos
     private String nombre;
     @Nonnull
+    @NotBlank(message = "El tipo es obligatorio")
+    @Size(max = 50, message = "El tipo no puede tener más de 30 caracteres")
+    @Column(nullable = false, length = 50)  // Restricción a nivel de base de datos
     private String tipo;
 
     @Nonnull

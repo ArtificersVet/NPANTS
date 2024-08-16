@@ -3,6 +3,7 @@ package com.nPants.nPants.Models;
 import java.time.LocalDateTime;
 
 import jakarta.annotation.Nonnull;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,14 +21,15 @@ public class HistorialPedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-     @Nonnull
+    @Nonnull
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedidoid;
 
     @Nonnull
     private LocalDateTime fecha;
-
+    
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String comentario;
 
     @Nonnull
