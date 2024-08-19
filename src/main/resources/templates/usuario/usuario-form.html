@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario de detalles</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+     <!-- <h1 class="text-center mb-5 mt-3" th:text="${usuarios.id == null} ? 'Nuevos usuarios' : 'Editar usuarios'"></h1>  -->
+
+    <div class="d-flex justify-content-center align-items-center   " >
+        <div class=" justify-content-center align-items-center border w-25 border-danger">
+
+             <form class="mt-3" th:action="@{/usuario}" th:object="${usuarios}" method="post"> 
+                 <input type="hidden" th:field="*{id}" />
+                <label class="mx-3">email:</label>
+                <input class="form-control w-50 mx-3" type="text" th:field="*{email}" />
+                <label class="mx-3" for="">Precio</label>
+                <input class="form-control w-50 mx-3" type="number" th:field="*{nombre}" />
+                <label class="mx-3" for="">Rol</label> 
+                 <select class="form-control w-50 mx-3" th:field="*{rolid.id}">
+                    <option th:each="rol : ${roles}"
+                            th:value="${rol.id}"
+                            th:text="${rol.nombre}"></option>
+                </select> 
+                <br>
+                <button class="btn btn-primary mx-3" type="submit">Guardar</button>
+            </form> 
+            <br>
+            <a class="btn btn-info mx-3 mb-3" href="/usuario">Volver a la lista</a>
+        </div>
+    </div>
+
+</body>
+</html>
