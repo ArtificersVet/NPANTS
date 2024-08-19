@@ -15,8 +15,10 @@
                  <input type="hidden" th:field="*{id}" />
                 <label class="mx-3">email:</label>
                 <input class="form-control w-50 mx-3" type="text" th:field="*{email}" />
-                <label class="mx-3" for="">Precio</label>
-                <input class="form-control w-50 mx-3" type="number" th:field="*{nombre}" />
+                <label class="mx-3" for="">Nombre</label>
+                <input class="form-control w-50 mx-3" type="text" th:field="*{nombre}" />
+                <label class="mx-3" for="">Contraseña</label>
+                <input class="form-control w-50 mx-3" type="password" th:field="*{password}" />
                 <label class="mx-3" for="">Rol</label> 
                  <select class="form-control w-50 mx-3" th:field="*{rolid.id}">
                     <option th:each="rol : ${roles}"

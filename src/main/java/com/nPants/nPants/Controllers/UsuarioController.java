@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.nPants.nPants.Models.Usuario;
 import com.nPants.nPants.services.RolServices;
 import com.nPants.nPants.services.UsuarioServices;
+import com.nPants.nPants.services.UsuarioServicess.sha256;
 
 @Controller
 @RequestMapping("usuario")
@@ -40,7 +41,9 @@ public class UsuarioController {
 
     @PostMapping
     public String SaveUser(Usuario usuario) {
-
+        // Encriptar la contraseña antes de guardar el usuario
+        String hashedPassword = sha256.hashPassword(usuario.getPassword());
+        usuario.setPassword(hashedPassword);
         usuarioServices.guardar(usuario);
         return "redirect:/usuario";
     }
