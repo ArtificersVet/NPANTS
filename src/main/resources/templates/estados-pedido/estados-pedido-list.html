@@ -5,7 +5,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+    <div th:replace="layouts/layout"></div>
+
     <div class="container mt-4">
+
+        <h1>Listado Estado Pedido</h1>
+
         <a class="btn btn-primary mx-2 mt-2 mb-2" th:href="@{/estados-pedido/nuevo}">Nuevo Estado de Pedido</a>
         <a class="btn btn-primary mx-2 mx-3" href="/">Inicio</a>
 
