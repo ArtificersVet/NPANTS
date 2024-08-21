@@ -43,8 +43,8 @@ public class UsuarioController {
     @PostMapping
     public String SaveUser(Usuario usuario) {
         // Encriptar la contraseña antes de guardar el usuario
-        String hashedPassword = sha256.hashPassword(usuario.getPassword());
-        usuario.setPassword(hashedPassword);
+        // String hashedPassword = sha256.hashPassword(usuario.getPassword());
+        // usuario.setPassword(hashedPassword);
         usuarioServices.guardar(usuario);
         return "redirect:/usuario";
     }
