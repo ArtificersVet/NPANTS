@@ -34,7 +34,8 @@ public class UsuarioController {
     public String ShowCreateUser(Model model) {
 
         model.addAttribute("usuarios", new Usuario());
-        model.addAttribute("roles", rolServices.listarTodas());
+        model.addAttribute("roles", rolServices.listarTodas(0, 10)); // Fetch the first page with 10 roles per page.
+
 
         return "usuario/usuario-form";
     }
@@ -52,7 +53,8 @@ public class UsuarioController {
     public String ShowEditUser(@PathVariable Long id, Model model) {
 
         model.addAttribute("usuarios", usuarioServices.ontenerPorId(id));
-        model.addAttribute("roles", rolServices.listarTodas());
+        model.addAttribute("roles", rolServices.listarTodas(0, 10)); // Fetch the first page with 10 roles per page.
+
 
         return "usuario/usuario-form"; 
     }
