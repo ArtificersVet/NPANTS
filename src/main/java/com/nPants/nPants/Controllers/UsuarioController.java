@@ -36,15 +36,14 @@ public class UsuarioController {
         model.addAttribute("usuarios", new Usuario());
         model.addAttribute("roles", rolServices.listarTodas(0, 10)); // Fetch the first page with 10 roles per page.
 
-
         return "usuario/usuario-form";
     }
 
     @PostMapping
     public String SaveUser(Usuario usuario) {
         // Encriptar la contraseña antes de guardar el usuario
-        // String hashedPassword = sha256.hashPassword(usuario.getPassword());
-        // usuario.setPassword(hashedPassword);
+        String hashedPassword = sha256.hashPassword(usuario.getPassword());
+        usuario.setPassword(hashedPassword);
         usuarioServices.guardar(usuario);
         return "redirect:/usuario";
     }
@@ -55,8 +54,7 @@ public class UsuarioController {
         model.addAttribute("usuarios", usuarioServices.ontenerPorId(id));
         model.addAttribute("roles", rolServices.listarTodas(0, 10)); // Fetch the first page with 10 roles per page.
 
-
-        return "usuario/usuario-form"; 
+        return "usuario/usuario-form";
     }
 
     @GetMapping("eliminar/{id}")
