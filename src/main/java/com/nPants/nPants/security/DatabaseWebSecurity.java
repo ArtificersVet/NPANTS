@@ -35,7 +35,7 @@ public class DatabaseWebSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(requests -> requests
-                .requestMatchers("/login").permitAll() // Permitir acceso sin autenticación a estas rutas
+                .requestMatchers("/Login").permitAll() // Permitir acceso sin autenticación a estas rutas
                 .anyRequest().authenticated() // Proteger todas las demás rutas
             )
             .formLogin(form -> form
