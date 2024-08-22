@@ -34,9 +34,6 @@ public class DatabaseWebSecurity {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-        .csrf(csrf -> csrf
-        .ignoringRequestMatchers("/Login") 
-    )
             .authorizeHttpRequests(requests -> requests
                 .requestMatchers("/login").permitAll() // Permitir acceso sin autenticación a estas rutas
                 .anyRequest().authenticated() // Proteger todas las demás rutas
