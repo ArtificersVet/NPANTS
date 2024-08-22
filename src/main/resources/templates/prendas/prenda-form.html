@@ -8,7 +8,6 @@
     />
   </head>
   <body>
-    <div th:replace="layouts/layout"></div>
     <div class="container mt-4">
       <h1
         class="text-center mb-5 mt-3"
@@ -24,54 +23,80 @@
             <form th:action="@{/prendas}" th:object="${prenda}" method="post">
               <input type="hidden" th:field="*{id}" />
 
-              <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input
-                  id="nombre"
-                  class="form-control"
-                  type="text"
-                  th:field="*{nombre}"
-                />
+              <!-- Primera fila -->
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="nombre">Nombre:</label>
+                  <input
+                    id="nombre"
+                    class="form-control"
+                    type="text"
+                    th:field="*{nombre}"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="descripcion">Descripción:</label>
+                  <input
+                    id="descripcion"
+                    class="form-control"
+                    type="text"
+                    th:field="*{descripcion}"
+                  />
+                </div>
               </div>
 
-              <div class="form-group">
-                <label for="descripcion">Descripción:</label>
-                <input
-                  id="descripcion"
-                  class="form-control"
-                  type="text"
-                  th:field="*{descripcion}"
-                />
+              <!-- Segunda fila -->
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="telaid">Tela: </label>
+                  <select
+                    id="telaid"
+                    class="form-control"
+                    th:field="*{telaid}"
+                    required
+                  >
+                    <option
+                      th:each="tela : ${telas}"
+                      th:value="${tela.id}"
+                      th:text="${tela.nombre}"
+                    ></option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="estiloid">Estilo: </label>
+                  <select
+                    id="estiloid"
+                    class="form-control"
+                    th:field="*{estiloid}"
+                    required
+                  >
+                    <option
+                      th:each="estilo : ${estilos}"
+                      th:value="${estilo.id}"
+                      th:text="${estilo.nombre}"
+                    ></option>
+                  </select>
+                </div>
               </div>
 
-              <label>Tela: </label>
-              <select class="form-control mb-3" th:field="*{telaid}" required>
-                <option
-                  th:each="tela : ${telas}"
-                  th:value="${tela.id}"
-                  th:text="${tela.nombre}"
-                ></option>
-              </select>
-              <label>Estilo: </label>
-              <select class="form-control mb-3" th:field="*{estiloid}" required>
-                <option
-                  th:each="estilo : ${estilos}"
-                  th:value="${estilo.id}"
-                  th:text="${estilo.nombre}"
-                ></option>
-              </select>
-              <label>Tipo prenda vestir: </label>
-              <select
-                class="form-control mb-3"
-                th:field="*{tipoPrendaVestirid}"
-                required
-              >
-                <option
-                  th:each="tipo : ${tiposPrenda}"
-                  th:value="${tipo.id}"
-                  th:text="${tipo.nombre}"
-                ></option>
-              </select>
+              <!-- Tercera fila -->
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="tipoPrendaVestirid">Tipo prenda vestir: </label>
+                  <select
+                    id="tipoPrendaVestirid"
+                    class="form-control"
+                    th:field="*{tipoPrendaVestirid}"
+                    required
+                  >
+                    <option
+                      th:each="tipo : ${tiposPrenda}"
+                      th:value="${tipo.id}"
+                      th:text="${tipo.nombre}"
+                    ></option>
+                  </select>
+                </div>
+              </div>
 
               <div class="text-center">
                 <button class="btn btn-primary" type="submit">Guardar</button>

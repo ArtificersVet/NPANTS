@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nPants.nPants.Models.PrendaVestir;
+import com.nPants.nPants.Models.Rol;
 import com.nPants.nPants.services.EstiloServices;
 import com.nPants.nPants.services.PrendaVestirServices;
 import com.nPants.nPants.services.TelaServices;
 import com.nPants.nPants.services.TipoPrendaVestirServices;
+
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.Page;
 
 @Controller
 @RequestMapping("prendas")
@@ -31,9 +35,25 @@ public class PrendaVestirController {
     private EstiloServices estiloService;
 
     @GetMapping
-    public String listarPrendas(Model model) {
-        model.addAttribute("prendas", prendaVestirService.listarTodas()); 
+    public String listarPrendas(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
+    @RequestParam(defaultValue = "") String nombre, Model model) {
+
+       Page<PrendaVestir> prendas;
+        if (nombre.isEmpty()) {
+            prendas = prendaVestirService.listarTodas(page, size);
+        } else {
+            prendas = prendaVestirService.buscarPorNombre(nombre, page, size);
+        }
+
+         model.addAttribute("prendas", prendas.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", prendas.getTotalPages());
+        model.addAttribute("totalItems", prendas.getTotalElements());
+        model.addAttribute("pageSize", size);
+        model.addAttribute("nombre", nombre);
+
         return "prendas/prendas-list";
+
     }
 
     @GetMapping("nuevo")

@@ -3,8 +3,10 @@ package com.nPants.nPants.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import com.nPants.nPants.Models.PrendaVestir;
 import com.nPants.nPants.repository.PrendaVestirRepository;
 
@@ -15,8 +17,10 @@ public class PrendaVestirServices {
     @Autowired
     private PrendaVestirRepository prendaVestirRepository;
 
-    public List<PrendaVestir> listarTodas() {
-        return prendaVestirRepository.findAll();
+    public Page<PrendaVestir> listarTodas(int pageNumber, int pageSize) {
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return prendaVestirRepository.findAll(pageable);
     }
 
     public PrendaVestir guardar (PrendaVestir prendaVestir) {
@@ -29,5 +33,9 @@ public class PrendaVestirServices {
 
     public void eliminar (Long id) {
         prendaVestirRepository.deleteById(id);
+    }
+     public Page<PrendaVestir> buscarPorNombre(String nombre, int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return prendaVestirRepository.findByNombreContaining(nombre, pageable);
     }
 }
