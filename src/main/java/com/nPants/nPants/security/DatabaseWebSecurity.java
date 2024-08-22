@@ -35,7 +35,7 @@ public class DatabaseWebSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
         .csrf(csrf -> csrf
-        .ignoringRequestMatchers("/Login") // Ignorar CSRF para esta ruta específica
+        .ignoringRequestMatchers("/Login") 
     )
             .authorizeHttpRequests(requests -> requests
                 .requestMatchers("/login").permitAll() // Permitir acceso sin autenticación a estas rutas
