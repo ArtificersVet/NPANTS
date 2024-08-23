@@ -59,7 +59,7 @@ public class PrendaVestirController {
     @GetMapping("nuevo")
     public String showNewPrendaVestir(Model model) {
         model.addAttribute("prenda", new PrendaVestir());
-        model.addAttribute("telas", telaService.listarTodas());
+        model.addAttribute("telas", telaService.listarTelas());
         model.addAttribute("estilos", estiloService.listarTodas());
         model.addAttribute("tiposPrenda", tipoPrendaVestirService.listarTodas());
         return "prendas/prenda-form";
@@ -75,7 +75,7 @@ public class PrendaVestirController {
     public String editarPrenda(@PathVariable("id") Long id, Model model) {
         PrendaVestir prenda = prendaVestirService.ontenerPorId(id);
         model.addAttribute("prenda", prenda);
-        model.addAttribute("telas", telaService.listarTodas());
+        model.addAttribute("telas", telaService.listarTelas());
         model.addAttribute("estilos", estiloService.listarTodas());
         model.addAttribute("tiposPrenda", tipoPrendaVestirService.listarTodas());
         return "prendas/prenda-form";
