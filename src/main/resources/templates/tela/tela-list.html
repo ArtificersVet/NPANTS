@@ -6,14 +6,25 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
+    <style>
+      .pagination .page-item.active .page-link {
+          background-color: #007bff;
+          border-color: #007bff;
+      }
+      .pagination .page-item.disabled .page-link {
+          color: #6c757d;
+          pointer-events: none;
+          background-color: #ffffff;
+          border-color: #dddddd;
+      }
+  </style>
   </head>
   <body>
     <div th:replace="layouts/layout"></div>
     <div class="container mt-4">
       <div class="card">
         <div
-          class="card-header d-flex justify-content-between align-items-center"
-        >
+          class="card-header d-flex justify-content-between align-items-center">
           <h1>Listado de Telas</h1>
           <a th:href="@{/tela/nuevo}" class="btn btn-primary mb-3"
             >Nueva Tela</a
@@ -79,10 +90,8 @@
             </tbody>
           </table>
         </div>
-      </div>
-      <div
-        class="card-footer d-flex justify-content-between align-items-center"
-      >
+
+        <div class="card-footer d-flex justify-content-between align-items-center">
         <p class="mb-0">
           Mostrando <span th:text="${tela.size()}"></span> de
           <span th:text="${totalItems}"></span> telas
@@ -123,7 +132,9 @@
             </li>
           </ul>
         </nav>
+      
       </div>
+  
     </div>
   </body>
 </html>
