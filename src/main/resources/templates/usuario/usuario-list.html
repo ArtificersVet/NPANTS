@@ -47,8 +47,8 @@
                 <tbody class="text-gray-700 text-sm font-light">
                     <tr th:each="usuario : ${usuarios}" class="hover:bg-gray-100 border-b border-gray-200">
                         <td class="py-3 px-4" th:text="${usuario.id}"></td>
-                        <td class="py-3 px-4" th:text="${usuario.email}"></td>
                         <td class="py-3 px-4" th:text="${usuario.nombre}"></td>
+                        <td class="py-3 px-4" th:text="${usuario.email}"></td>                        
                         <td class="py-3 px-4" th:text="${usuario.rolid.nombre}"></td>
                         <td class="py-3 px-4 flex space-x-2">
                             <a class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow"
