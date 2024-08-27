@@ -2,42 +2,50 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Formulario de Cliente</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100">
     <div th:replace="layouts/layout"></div>
 
-    <h1 class="text-center mb-5 mt-3" th:text="${cliente.id == null} ? 'Nuevo Cliente' : 'Editar Cliente'"></h1>
+    <h1 class="text-center mb-5 mt-3 text-2xl font-semibold" th:text="${cliente.id == null} ? 'Nuevo Cliente' : 'Editar Cliente'"></h1>
 
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="border w-50 border-danger p-4">
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
             <form th:action="@{/clientes}" th:object="${cliente}" method="post">
                 <input type="hidden" th:field="*{id}" />
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Nombre del Cliente" required />
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="nombre">Nombre:</label>
+                    <input type="text" class="form-control w-full mt-1 p-2 border border-gray-300 rounded" id="nombre" th:field="*{nombre}" placeholder="Nombre del Cliente" required />
                 </div>
-                <div class="form-group">
-                    <label for="direccion">Dirección:</label>
-                    <input type="text" class="form-control" id="direccion" th:field="*{direccion}" placeholder="Dirección" required />
+
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="direccion">Dirección:</label>
+                    <input type="text" class="form-control w-full mt-1 p-2 border border-gray-300 rounded" id="direccion" th:field="*{direccion}" placeholder="Dirección" required />
                 </div>
-                <div class="form-group">
-                    <label for="telefono">Teléfono:</label>
-                    <input type="text" class="form-control" id="telefono" th:field="*{telefono}" placeholder="Teléfono" required />
+
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="telefono">Teléfono:</label>
+                    <input type="text" class="form-control w-full mt-1 p-2 border border-gray-300 rounded" id="telefono" th:field="*{telefono}" placeholder="Teléfono" required />
                 </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Email" required />
+
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="email">Email:</label>
+                    <input type="email" class="form-control w-full mt-1 p-2 border border-gray-300 rounded" id="email" th:field="*{email}" placeholder="Email" required />
                 </div>
-                <div class="form-group">
-                    <label for="tipoClienteid">Tipo de Cliente:</label>
-                    <select class="form-control" id="tipoClienteid" th:field="*{tipoClienteid}">
+
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="tipoClienteid">Tipo de Cliente:</label>
+                    <select class="form-control w-full mt-1 p-2 border border-gray-300 rounded" id="tipoClienteid" th:field="*{tipoClienteid}">
                         <option th:each="tipo : ${tiposClientes}" th:value="${tipo.id}" th:text="${tipo.nombre}"></option>
                     </select>
                 </div>
-                <button class="btn btn-primary" type="submit">Guardar</button>
+
+                <div class="flex justify-between items-center">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700" type="submit">Guardar</button>
+                    <a class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700" href="/clientes">Volver a la lista</a>
+                </div>
             </form>
-            <a class="btn btn-info mt-3" href="/clientes">Volver a la lista</a>
         </div>
     </div>
 </body>

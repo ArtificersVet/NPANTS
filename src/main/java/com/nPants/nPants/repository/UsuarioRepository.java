@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.nPants.nPants.Models.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-// Método para buscar roles por nombre con paginación
+// Método para buscar usuario por nombre con paginación
     Page<Usuario> findByNombreContaining(String nombre, Pageable pageable);
 }
