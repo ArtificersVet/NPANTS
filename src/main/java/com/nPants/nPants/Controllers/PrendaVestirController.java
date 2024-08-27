@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nPants.nPants.Models.PrendaVestir;
-import com.nPants.nPants.Models.Rol;
 import com.nPants.nPants.services.EstiloServices;
 import com.nPants.nPants.services.PrendaVestirServices;
 import com.nPants.nPants.services.TelaServices;

@@ -1,13 +1,16 @@
 package com.nPants.nPants.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nPants.nPants.Models.Rol;
 import com.nPants.nPants.Models.Usuario;
 import com.nPants.nPants.services.RolServices;
 import com.nPants.nPants.services.UsuarioServices;
@@ -24,9 +27,25 @@ public class UsuarioController {
     private RolServices rolServices;
 
     @GetMapping
-    public String ListUsers(Model model) {
+    public String ListUsers(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "5") int size,
+        @RequestParam(defaultValue = "") String nombre,
+        Model model) {
 
-        model.addAttribute("usuarios", usuarioServices.listarTodas());
+            Page<Usuario> usuarios;
+        if (nombre.isEmpty()) {
+            usuarios = usuarioServices.listarTodas(page, size);
+        } else {
+            usuarios = usuarioServices.buscarPorNombre(nombre, page, size);
+        }
+
+        model.addAttribute("usuarios", usuarios.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", usuarios.getTotalPages());
+        model.addAttribute("totalItems", usuarios.getTotalElements());
+        model.addAttribute("pageSize", size);
+        model.addAttribute("nombre", nombre);
         return "usuario/usuario-list";
     }
 

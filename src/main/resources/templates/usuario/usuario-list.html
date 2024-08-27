@@ -2,44 +2,83 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Detalle</title>
+    <title>Listado de Usuarios</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-100 font-sans">
     <div th:replace="layouts/layout"></div>
-    <div class="container mx-auto mt-8 p-4 bg-white shadow-md rounded-lg">
 
-        <h1 class="text-2xl font-bold mb-4">Listado Usuarios</h1>
-
-        <div class="flex justify-between mb-4">
-            <a class="btn btn-primary mx-2 mt-2 mb-2 bg-blue-500 text-white px-4 py-2 rounded" th:href="@{/usuario/nuevo}">Nuevo</a>
-            <a class="btn btn-primary mx-2 mx-3 bg-blue-500 text-white px-4 py-2 rounded" href="/">Inicio</a>
+    <div class="container mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-semibold text-gray-800">Listado de Usuarios</h1>
+            <a class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow" 
+            th:href="@{/usuario/nuevo}">Nuevo Usuario</a>
         </div>
 
-        <table class="min-w-full bg-white">
-            <thead>
-                <tr>
-                    <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">ID</th>
-                    <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Email</th>
-                    <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Nombre</th>
-                    <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Rol</th>
-                    <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="usuarios : ${usuarios}" class="hover:bg-gray-100">
-                    <td class="py-2 px-4 border-b border-gray-300" th:text="${usuarios.id}"></td>
-                    <td class="py-2 px-4 border-b border-gray-300" th:text="${usuarios.email}"></td>
-                    <td class="py-2 px-4 border-b border-gray-300" th:text="${usuarios.nombre}"></td>
-                    <td class="py-2 px-4 border-b border-gray-300" th:text="${usuarios.rolid.nombre}"></td>
-                    <td class="py-2 px-4 border-b border-gray-300">
-                        <a class="bg-blue-500 text-white px-4 py-2 rounded mr-2" th:href="@{/usuario/editar/{id}(id=${usuarios.id})}">Editar</a>
-                        <a class="bg-red-500 text-white px-4 py-2 rounded" th:href="@{/usuario/eliminar/{id}(id=${usuarios.id})}">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- Barra de búsqueda -->
+        <form th:action="@{/usuario}" method="get" class="mb-6 flex items-center space-x-4">
+            <input type="text" name="nombre" placeholder="Buscar por nombre"
+                   th:value="${nombre}"
+                   class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow">
+                Buscar
+            </button>
+            <!-- Selección por página -->
+            <select name="size" class="border rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    onchange="this.form.submit()">
+                <option th:value="5" th:selected="${pageSize == 5}">5 por página</option>
+                <option th:value="10" th:selected="${pageSize == 10}">10 por página</option>
+                <option th:value="20" th:selected="${pageSize == 20}">20 por página</option>
+            </select>
+        </form>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                <thead class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <tr>
+                        <th class="py-3 px-4 text-left">ID</th>
+                        <th class="py-3 px-4 text-left">Email</th>
+                        <th class="py-3 px-4 text-left">Nombre</th>
+                        <th class="py-3 px-4 text-left">Rol</th>
+                        <th class="py-3 px-4 text-left">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700 text-sm font-light">
+                    <tr th:each="usuario : ${usuarios}" class="hover:bg-gray-100 border-b border-gray-200">
+                        <td class="py-3 px-4" th:text="${usuario.id}"></td>
+                        <td class="py-3 px-4" th:text="${usuario.email}"></td>
+                        <td class="py-3 px-4" th:text="${usuario.nombre}"></td>
+                        <td class="py-3 px-4" th:text="${usuario.rolid.nombre}"></td>
+                        <td class="py-3 px-4 flex space-x-2">
+                            <a class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow"
+                               th:href="@{/usuario/editar/{id}(id=${usuario.id})}">Editar</a>
+                            <a class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded shadow"
+                               th:href="@{/usuario/eliminar/{id}(id=${usuario.id})}">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="mt-6 flex justify-between items-center">
+            <div class="flex space-x-2">
+                <span th:text="'Página ' + (${currentPage} + 1) + ' de ' + ${totalPages}"></span>
+            </div>
+            <div class="flex space-x-2">
+                <a th:href="@{/usuario(page=${currentPage-1}, size=${pageSize}, nombre=${nombre})}"
+                   th:if="${currentPage > 0}"
+                   class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded shadow">
+                    Anterior
+                </a>
+                <a th:href="@{/usuario(page=${currentPage+1}, size=${pageSize}, nombre=${nombre})}"
+                   th:if="${currentPage + 1 < totalPages}"
+                   class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded shadow">
+                    Siguiente
+                </a>
+            </div>
+        </div>
     </div>
 </body>
 
