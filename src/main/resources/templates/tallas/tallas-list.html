@@ -49,8 +49,11 @@
                             <td th:text="${talla.nombre}"></td>
                             <td>
                                 <a class="btn btn-info mt-1 mb-1" th:href="@{/tallas/editar/{id}(id=${talla.id})}">Editar</a>
-                                <a class="btn btn-danger mt-1 mb-1" th:href="@{/tallas/eliminar/{id}(id=${talla.id})}">Eliminar</a>
+                                <form th:action="@{/tallas/eliminar/{id}(id=${talla.id})}" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger mt-1 mb-1" onclick="return confirm('¿Estás seguro de que deseas eliminar esta talla?');">Eliminar</button>
+                                </form>
                             </td>
+                            
                         </tr>
                     </tbody>
                 </table>
