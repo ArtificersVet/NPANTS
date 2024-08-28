@@ -1,15 +1,13 @@
 package com.nPants.nPants.Models;
 
-import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.annotation.Nonnull;
 
 @Entity
 public class EstiloTalla {
@@ -22,18 +20,35 @@ public class EstiloTalla {
 
     @ManyToOne
     @JoinColumn(name = "estilo_id") 
-    private Estilo estiloid; 
+    private Estilo estilo; 
 
-    @ManyToMany
-    @JoinTable(
-        name = "talla_estilo_talla", 
-        joinColumns = @JoinColumn(name = "estilo_talla_id"), 
-        inverseJoinColumns = @JoinColumn(name = "talla_id") 
-    )
-    private List<Talla> tallas; 
+    //@ManyToMany
+    //@JoinTable(
+       //name = "talla_estilo_talla", 
+       // joinColumns = @JoinColumn(name = "estilo_talla_id"), 
+       // inverseJoinColumns = @JoinColumn(name = "talla_id") 
+    //)
+    @ManyToOne
+    @JoinColumn(name = "talla_id", referencedColumnName = "id")
+    private Talla talla;
 
     public EstiloTalla() {
-        super();
+    }
+
+
+    public EstiloTalla(@Nonnull Talla talla, @Nonnull Estilo estilo, double consumoTela) {
+        this.talla = talla;
+        this.estilo = estilo;
+        this.consumoTela = consumoTela;
+    }
+
+
+    public Talla getTalla() {
+        return talla;
+    }
+
+    public void setTalla(Talla talla) {
+        this.talla = talla;
     }
 
     public Long getId() {
@@ -52,22 +67,15 @@ public class EstiloTalla {
         this.consumoTela = consumoTela;
     }
 
-    public Estilo getEstiloid() {
-        return estiloid;
+
+    public Estilo getEstilo() {
+        return estilo;
     }
 
-    public void setEstiloid(Estilo estiloid) {
-        this.estiloid = estiloid;
+
+    public void setEstilo(Estilo estilo) {
+        this.estilo = estilo;
     }
 
-    public List<Talla> getTallas() {
-        return tallas;
-    }
 
-    public void setTallas(List<Talla> tallas) {
-        this.tallas = tallas;
-    }
-
-    
-    
 }

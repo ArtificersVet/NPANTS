@@ -1,0 +1,45 @@
+<h2>Estilo Talla</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Estilo Talla</th>
+            <th>Consumo Tela</th>
+            <th th:if="${action == 'create' || action == 'edit'}">
+                <button type="submit" class="btn btn-success" th:formaction="@{/tallas/addestilotallas}">Agregar</button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="item, iterStat : ${talla.estiloTallas}">
+            <td style="display: none;">
+                <input type="hidden" class="form-control" th:value="${item.id}"
+                    th:name="'estiloTallas[' + ${iterStat.index} + '].id'" id="id">
+            </td>
+            <td>
+                <!-- Select para Estilo -->
+                <select th:name="'estiloTallas[' + ${iterStat.index} + '].estilo.id'">
+                    <option th:each="estilo : ${estilos}" 
+                    th:value="${estilo.id}" 
+                    th:text="${estilo.nombre}"
+                    th:selected="${item.estilo != null && estilo.id == item.estilo.id}"></option>
+            
+                </select>
+            </td>
+            <td>
+                <input type="number" step="0.01" class="form-control" th:value="${item.consumoTela}" data-block
+                    th:name="'estiloTallas[' + ${iterStat.index} + '].consumoTela'" id="consumoTela" required>
+            </td>
+            <td th:if="${action == 'create' || action == 'edit'}">
+                <button type="submit" class="btn btn-outline-danger"
+                    th:formaction="@{/tallas/delestilotallas/{id} (id = ${item.id})}">Eliminar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script th:if="${action == 'delete' || action == 'details'}">
+    const blockInputs = document.querySelectorAll("*[data-block], select");
+    for (var i = 0; i < blockInputs.length; i++) {
+        blockInputs[i].setAttribute("disabled", "disabled");
+    }
+</script>
