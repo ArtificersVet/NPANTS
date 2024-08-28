@@ -1,7 +1,9 @@
 package com.nPants.nPants.services;
 
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,9 @@ public class MetodoPagoServices {
     @Autowired
     private MetodoPagoRepository metodoPagoRepository;
 
-    public List<MetodoPago> listarTodas() {
-        return metodoPagoRepository.findAll();
+    public Page<MetodoPago> listarTodas(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return metodoPagoRepository.findAll(pageable);
     }
 
     public MetodoPago guardar (MetodoPago metodoPago) {
@@ -28,5 +31,9 @@ public class MetodoPagoServices {
 
     public void eliminar (Long id) {
         metodoPagoRepository.deleteById(id);
+    }
+    public Page<MetodoPago> buscarPorNombre(String nombre, int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return metodoPagoRepository.findByNombreContaining(nombre, pageable);
     }
 }
