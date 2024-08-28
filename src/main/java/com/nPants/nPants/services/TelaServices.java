@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
-import com.nPants.nPants.Models.Talla;
+
 import com.nPants.nPants.Models.Tela;
 import com.nPants.nPants.repository.TelaRepository;
 

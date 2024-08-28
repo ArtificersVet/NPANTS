@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nPants.nPants.Models.Cliente;
-import com.nPants.nPants.Models.Usuario;
 import com.nPants.nPants.services.ClienteServices; // Asegúrate de tener este servicio
 import com.nPants.nPants.services.TipoClienteServices; // Asegúrate de tener este servicio
 
@@ -49,7 +48,7 @@ public class ClienteController {
     @GetMapping("nuevo")
     public String showNewCliente(Model model) {
         model.addAttribute("cliente", new Cliente());
-        model.addAttribute("tiposClientes", tipoClienteService.listarTodas()); // Para el dropdown de tipoCliente
+        model.addAttribute("tiposClientes", tipoClienteService.listarTodas(0, 10)); // Para el dropdown de tipoCliente
         return "clientes/cliente-form"; // Ajusta el nombre de la vista
     }
 
@@ -62,7 +61,7 @@ public class ClienteController {
     @GetMapping("/editar/{id}")
     public String showEditCliente(@PathVariable Long id, Model model) {
         model.addAttribute("cliente", clienteService.ontenerPorId(id)); 
-        model.addAttribute("tiposClientes", tipoClienteService.listarTodas()); // Para el dropdown de tipoCliente
+        model.addAttribute("tiposClientes", tipoClienteService.listarTodas(0, 10)); // Para el dropdown de tipoCliente
         return "clientes/cliente-form"; 
     }
 

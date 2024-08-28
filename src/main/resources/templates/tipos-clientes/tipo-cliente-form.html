@@ -2,27 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Formulario de Tipo de Cliente</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100">
     <div th:replace="layouts/layout"></div>
-    <h1 class="text-center mb-5 mt-3" th:text="${tipoCliente.id == null} ? 'Nuevo Tipo de Cliente' : 'Editar Tipo de Cliente'"></h1>
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <h1 class="text-center text-2xl font-semibold mb-5" th:text="${tipoCliente.id == null} ? 'Nuevo Tipo de Cliente' : 'Editar Tipo de Cliente'"></h1>
 
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="border w-50 border-danger p-4">
             <form th:action="@{/tipos-clientes}" th:object="${tipoCliente}" method="post">
                 <input type="hidden" th:field="*{id}" />
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Nombre del Tipo de Cliente" required />
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700">Nombre:</label>
+                    <input type="text" class="form-control w-full mt-1 p-2 border border-gray-300 rounded" th:field="*{nombre}" placeholder="Nombre del Tipo de Cliente" required />
                 </div>
-                <div class="form-group">
-                    <label for="descripcion">Descripción:</label>
-                    <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" placeholder="Descripción" />
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700">Descripción:</label>
+                    <input type="text" class="form-control w-full mt-1 p-2 border border-gray-300 rounded" th:field="*{descripcion}" placeholder="Descripción" />
                 </div>
-                <button class="btn btn-primary" type="submit">Guardar</button>
+                
+                <div class="flex justify-between items-center">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700" type="submit">Guardar</button>
+                    <a class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700" href="/tipos-clientes">Volver a la lista</a>
+                </div>
             </form>
-            <a class="btn btn-info mt-3" href="/tipos-clientes">Volver a la lista</a>
         </div>
     </div>
 </body>
