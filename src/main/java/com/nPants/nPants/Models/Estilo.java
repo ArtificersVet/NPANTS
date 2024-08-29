@@ -22,11 +22,18 @@ public class Estilo {
     @Nonnull
     private String tipo;
 
-    @Nonnull
-    @OneToMany
-    @JoinColumn(name = "talla_id")
-    private List<Talla> tallas;
+    @OneToMany(mappedBy = "estilo")
+    private List<EstiloTalla> estiloTallas;
     
+    
+    public List<EstiloTalla> getEstiloTallas() {
+        return estiloTallas;
+    }
+
+    public void setEstiloTallas(List<EstiloTalla> estiloTallas) {
+        this.estiloTallas = estiloTallas;
+    }
+
     public Estilo() {
         super();
     }
@@ -55,13 +62,7 @@ public class Estilo {
         this.tipo = tipo;
     }
 
-    public List<Talla> getTallas() {
-        return tallas;
-    }
-
-    public void setTallas(List<Talla> tallas) {
-        this.tallas = tallas;
-    }
+   
 
     
 }

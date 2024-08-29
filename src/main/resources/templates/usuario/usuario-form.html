@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario de detalles</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div th:replace="layouts/layout"></div>
+    <!-- <h1 class="text-center mb-5 mt-3" th:text="${usuarios.id == null} ? 'Nuevos usuarios' : 'Editar usuarios'"></h1>  -->
+
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <form th:action="@{/usuario}" th:object="${usuarios}" method="post">
+                <input type="hidden" th:field="*{id}" />
+                <div class="mb-4">
+                    <label class="block text-gray-700">Nombre:</label>
+                    <input class="form-control w-full mt-1 p-2 border border-gray-300 rounded" type="text" th:field="*{nombre}" />
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700">Email:</label>
+                    <input class="form-control w-full mt-1 p-2 border border-gray-300 rounded" type="text" th:field="*{email}" />
+                </div>
+               
+                <div class="mb-4">
+                    <label class="block text-gray-700">Contraseña:</label>
+                    <input class="form-control w-full mt-1 p-2 border border-gray-300 rounded" type="password" th:field="*{password}" />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Rol:</label>
+                    <select class="form-control w-full mt-1 p-2 border border-gray-300 rounded" th:field="*{rolid.id}">
+                        <option th:each="rol : ${roles}"
+                                th:value="${rol.id}"
+                                th:text="${rol.nombre}"></option>
+                    </select>
+                </div>
+                <div class="flex justify-between items-center">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700" type="submit">Guardar</button>
+                    <a class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700" href="/usuario">Volver a la lista</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

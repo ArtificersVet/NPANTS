@@ -3,8 +3,10 @@ package com.nPants.nPants.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Pageable;
 import com.nPants.nPants.Models.Talla;
 import com.nPants.nPants.repository.TallaRepository;
 
@@ -14,8 +16,13 @@ public class TallaServices {
     @Autowired
     private TallaRepository tallaRepository;
 
-    public List<Talla> listarTodas() {
+    public List<Talla> listarTallas() {
         return tallaRepository.findAll();
+    }
+
+    public Page<Talla> listarTodas(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return tallaRepository.findAll(pageable);
     }
 
     public Talla guardar (Talla talla) {
@@ -28,5 +35,9 @@ public class TallaServices {
 
     public void eliminar (Long id) {
         tallaRepository.deleteById(id);
+    }
+    public Page<Talla> buscarPorNombre(String nombre, int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return tallaRepository.findByNombreContaining(nombre, pageable);
     }
 }

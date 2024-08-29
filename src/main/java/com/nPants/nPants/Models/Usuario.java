@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Usuario {
@@ -20,7 +20,7 @@ public class Usuario {
 
     private String password;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "rol_id")
     private Rol rolid;
 

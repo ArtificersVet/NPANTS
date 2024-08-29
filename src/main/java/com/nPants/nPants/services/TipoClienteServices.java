@@ -1,8 +1,10 @@
 package com.nPants.nPants.services;
 
-import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.nPants.nPants.Models.TipoCliente;
@@ -14,8 +16,9 @@ public class TipoClienteServices {
     @Autowired
     private TipoClienteRepository tipoClienteRepository;
 
-    public List<TipoCliente> listarTodas() {
-        return tipoClienteRepository.findAll();
+    public Page<TipoCliente> listarTodas(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return tipoClienteRepository.findAll(pageable);
     }
 
     public TipoCliente guardar (TipoCliente tipoCliente) {
@@ -28,5 +31,9 @@ public class TipoClienteServices {
 
     public void eliminar (Long id) {
         tipoClienteRepository.deleteById(id);
+    }
+    public Page<TipoCliente> buscarPorNombre(String nombre, int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return tipoClienteRepository.findByNombreContaining(nombre, pageable);
     }
 }

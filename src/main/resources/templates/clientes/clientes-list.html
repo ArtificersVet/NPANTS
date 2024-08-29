@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Listado de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <div th:replace="~{layouts/layout}"></div>
+
+    <div class="container mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-semibold text-gray-800">Listado de Clientes</h1>
+            <a class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow" 
+               th:href="@{/clientes/nuevo}">Nuevo Cliente</a>
+        </div>
+
+        <!-- Barra de búsqueda -->
+        <form th:action="@{/clientes}" method="get" class="mb-6 flex items-center space-x-4">
+            <input type="text" name="nombre" placeholder="Buscar por nombre"
+                   th:value="${nombre}"
+                   class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow">
+                Buscar
+            </button>
+            <!-- Selección por página -->
+            <select name="size" class="border rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    onchange="this.form.submit()">
+                <option th:value="5" th:selected="${pageSize == 5}">5 por página</option>
+                <option th:value="10" th:selected="${pageSize == 10}">10 por página</option>
+                <option th:value="20" th:selected="${pageSize == 20}">20 por página</option>
+            </select>
+        </form>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                <thead class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <tr>
+                        <th class="py-3 px-4 text-left">ID</th>
+                        <th class="py-3 px-4 text-left">Nombre</th>
+                        <th class="py-3 px-4 text-left">Dirección</th>
+                        <th class="py-3 px-4 text-left">Teléfono</th>
+                        <th class="py-3 px-4 text-left">Email</th>
+                        <th class="py-3 px-4 text-left">Tipo de Cliente</th>
+                        <th class="py-3 px-4 text-left">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700 text-sm font-light">
+                    <tr th:each="cliente : ${clientes}" class="hover:bg-gray-100 border-b border-gray-200">
+                        <td class="py-3 px-4" th:text="${cliente.id}"></td>
+                        <td class="py-3 px-4" th:text="${cliente.nombre}"></td>
+                        <td class="py-3 px-4" th:text="${cliente.direccion}"></td>
+                        <td class="py-3 px-4" th:text="${cliente.telefono}"></td>
+                        <td class="py-3 px-4" th:text="${cliente.email}"></td>
+                        <td class="py-3 px-4" th:text="${cliente.tipoClienteid != null ? cliente.tipoClienteid.nombre : 'No asignado'}"></td>
+                        <td class="py-3 px-4 flex space-x-2">
+                            <a class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow"
+                               th:href="@{/clientes/editar/{id}(id=${cliente.id})}">Editar</a>
+                            <a class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded shadow"
+                               th:href="@{/clientes/eliminar/{id}(id=${cliente.id})}">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="mt-6 flex justify-between items-center">
+            <div class="flex space-x-2">
+                <span th:text="'Página ' + (${currentPage} + 1) + ' de ' + ${totalPages}"></span>
+            </div>
+            <div class="flex space-x-2">
+                <a th:href="@{/clientes(page=${currentPage-1}, size=${pageSize}, nombre=${nombre})}"
+                   th:if="${currentPage > 0}"
+                   class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded shadow">
+                    Anterior
+                </a>
+                <a th:href="@{/clientes(page=${currentPage+1}, size=${pageSize}, nombre=${nombre})}"
+                   th:if="${currentPage + 1 < totalPages}"
+                   class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded shadow">
+                    Siguiente
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

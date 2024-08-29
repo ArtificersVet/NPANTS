@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${tela.id == null} ? 'Nueva tela' : 'Editar tela'"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div th:replace="layouts/layout"></div>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 th:text="${tela.id == null} ? 'Nueva tela' : 'Editar tela'"></h1>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/tela}" th:object="${tela}" method="post">
+                <input type="hidden" th:field="*{id}" />
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" th:field="*{nombre}" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="color">Color:</label>
+                    <input type="text" id="color" th:field="*{color}" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="stock">Yardas:</label>
+                    <input type="number" id="stock" th:field="*{stock}" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+            <a th:href="@{/tela}" class="btn btn-secondary mt-3">Volver a la lista</a>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

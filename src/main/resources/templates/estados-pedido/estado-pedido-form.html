@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Formulario de Estados de Pedido</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+    <div th:replace="layouts/layout"></div>
+
+    <h1 class="text-center text-3xl font-bold mb-10 mt-5" th:text="${estadoPedido.id == null} ? 'Nuevo Estado de Pedido' : 'Editar Estado de Pedido'"></h1>
+
+    <div class="flex justify-center">
+        <div class="w-full max-w-md">
+            <div class="bg-white shadow-md rounded-lg">
+                <div class="p-6">
+                    <form th:action="@{/estados-pedido}" th:object="${estadoPedido}" method="post">
+                        <input type="hidden" th:field="*{id}" />
+                        
+                        <div class="mb-4">
+                            <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
+                            <input id="nombre" class="border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" th:field="*{nombre}" />
+                        </div>
+                        
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full" type="submit">Guardar</button>
+                    </form>
+                    
+                    <a class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-full mt-3 block text-center" href="/estados-pedido">Volver a la lista</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

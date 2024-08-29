@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Telas</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .pagination .page-item.active .page-link {
+          background-color: #007bff;
+          border-color: #007bff;
+      }
+      .pagination .page-item.disabled .page-link {
+          color: #6c757d;
+          pointer-events: none;
+          background-color: #ffffff;
+          border-color: #dddddd;
+      }
+  </style>
+  </head>
+  <body>
+    <div th:replace="layouts/layout"></div>
+    <div class="container mt-4">
+      <div class="card">
+        <div
+          class="card-header d-flex justify-content-between align-items-center">
+          <h1>Listado de Telas</h1>
+          <a th:href="@{/tela/nuevo}" class="btn btn-primary mb-3"
+            >Nueva Tela</a
+          >
+        </div>
+        <div class="card-body">
+          <form th:action="@{/tela}" method="get" class="form-inline mb-3">
+            <input
+              type="text"
+              name="nombre"
+              class="form-control mr-2"
+              th:value="${nombre}"
+              placeholder="Buscar por nombre"
+            />
+            <button type="submit" class="btn btn-primary mr-2">Buscar</button>
+            <select
+              name="size"
+              class="form-control"
+              onchange="this.form.submit()"
+            >
+              <option th:value="5" th:selected="${pageSize == 5}">
+                5 por página
+              </option>
+              <option th:value="10" th:selected="${pageSize == 10}">
+                10 por página
+              </option>
+              <option th:value="20" th:selected="${pageSize == 20}">
+                20 por página
+              </option>
+            </select>
+          </form>
+
+          <a th:href="@{/}" class="btn btn-secondary mb-3">Regresar </a>
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Color</th>
+                <th scope="col">Stock en yardas</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="tela : ${tela}">
+                <td th:text="${tela.id}"></td>
+                <td th:text="${tela.nombre}"></td>
+                <td th:text="${tela.color}"></td>
+                <td th:text="${tela.stock}"></td>
+                <td>
+                  <a
+                    th:href="@{/tela/editar/{id}(id=${tela.id})}"
+                    class="btn btn-warning btn-sm"
+                    >Editar</a
+                  >
+                  <a
+                    th:href="@{/tela/eliminar/{id}(id=${tela.id})}"
+                    class="btn btn-danger btn-sm"
+                    >Eliminar</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-footer d-flex justify-content-between align-items-center">
+        <p class="mb-0">
+          Mostrando <span th:text="${tela.size()}"></span> de
+          <span th:text="${totalItems}"></span> telas
+        </p>
+        <nav>
+          <ul class="pagination mb-0">
+            <li
+              class="page-item"
+              th:classappend="${currentPage == 0} ? 'disabled'"
+            >
+              <a
+                class="page-link"
+                th:href="@{/tela(page=${currentPage-1}, size=${pageSize}, nombre=${nombre})}"
+                >Anterior</a
+              >
+            </li>
+            <li
+              class="page-item"
+              th:each="i : ${#numbers.sequence(0, totalPages-1)}"
+              th:classappend="${i == currentPage} ? 'active'"
+            >
+              <a
+                class="page-link"
+                th:href="@{/tela(page=${i}, size=${pageSize}, nombre=${nombre})}"
+                th:text="${i+1}"
+                >1</a
+              >
+            </li>
+            <li
+              class="page-item"
+              th:classappend="${currentPage+1 == totalPages} ? 'disabled'"
+            >
+              <a
+                class="page-link"
+                th:href="@{/tela(page=${currentPage+1}, size=${pageSize}, nombre=${nombre})}"
+                >Siguiente</a
+              >
+            </li>
+          </ul>
+        </nav>
+      
+      </div>
+  
+    </div>
+  </body>
+</html>
