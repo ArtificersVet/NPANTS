@@ -22,12 +22,7 @@ public class EstiloTalla {
     @JoinColumn(name = "estilo_id") 
     private Estilo estilo; 
 
-    //@ManyToMany
-    //@JoinTable(
-       //name = "talla_estilo_talla", 
-       // joinColumns = @JoinColumn(name = "estilo_talla_id"), 
-       // inverseJoinColumns = @JoinColumn(name = "talla_id") 
-    //)
+    
     @ManyToOne
     @JoinColumn(name = "talla_id", referencedColumnName = "id")
     private Talla talla;
